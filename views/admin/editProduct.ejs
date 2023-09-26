@@ -1,0 +1,61 @@
+<%- include('../partials/adminNavbar.ejs') %>
+
+    <div class="addproduct-container">
+
+        <div class="form-addproduct">
+            <h2>Add Product</h2>
+
+            <form action="/admin/product/editProduct/<%= locals.product._id %>" method="post" enctype="multipart/form-data">
+
+                <div class="form-addproduct-inner">
+                    <div class="form-left">
+                        <label for="product_name">Product Name:</label><br>
+                        <input type="text" id="product_name" value="<%= locals.product.productName %>" name="productName"  required><br>
+
+                        <label for="price">Price:</label><br>
+                        <input type="number" id="price" name="price" value="<%= locals.product.productPrice  %>" step="0.01" required><br>
+
+                        <label for="quantity">Quantity:</label><br>
+                        <input type="number" id="quantity" name="quantity" value="<%= locals.product.productQuantity %>"  required><br>
+
+                        <p id="error" class="<%= locals.class %>">
+                            <%= locals.message %>
+                        </p>
+
+                    </div>
+                    <div class="form-right">
+
+                        <label for="category">Category:</label><br>
+                        <select id="category" name="category" required>
+                            <option value="" disabled selected><%= locals.product.productCategory  %></option>
+                            <% for (let each of locals.category) {%>
+                                <% console.log(each); %>
+                                <option value="<%= each.categoryName %>">
+                                    <%= each.categoryName %>
+                                </option>
+                                <%}%>
+                                    <!-- Add more categories as needed -->
+                        </select> <a
+                            style="background-color: #1f1e1e; padding: 2px 5px; font-size: 13px; text-decoration: none;"
+                            class="btn btn-dark" href="/admin/addCategory">Add Category</a><br>
+                            </select>
+
+                        <!-- <label for="subcategory">Subcategory:</label><br>
+                        <select id="subcategory" name="subcategory">
+                            <option value="" disabled selected>Select Subcategory</option>
+                            Add subcategories based on the selected category using JavaScript or fetch from the server
+                        </select><br> -->
+
+                        <label for="description">Description:</label><br>
+                        <textarea id="description"  name="description"  rows="4" cols="50" maxlength="499"><%= locals.product.productDescription %></textarea><br>
+
+                        <label for="file_uploader">File Uploader:</label><br>
+                        <input type="file" id="file_uploader" name="img-file"  accept=".jpg, .jpeg, .png" multiple onchange="previewImages(event)"><br>
+
+                    </div>
+                </div>
+                <input type="submit" value="Update" class="submit-btn text-white">
+            </form>
+
+        </div>
+    </div>

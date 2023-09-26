@@ -1,0 +1,255 @@
+
+<%- include('../partials/navbar.ejs') %>
+   
+    <!-- Slideshow container -->
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="images/carou.jpg" alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="images/carousal2.jpg" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="images/carou2.jpg" alt="Third slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="images/carousal7.jpg" alt="Fourth slide">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+<!-- End Slideshow -->
+
+<!-- Start Product Section -->
+
+<div class="product-section">
+  <div class="container">
+    <div class="row">
+
+      <!-- Start Column 1 -->
+      <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+        <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
+        <p class="mb-4">INDIA’S HARDWORKING FOOTWEAR.Long Lasting.Honest Pricing. </p>
+        <p><a href="/shop" class="btn btn-outline-dark">Explore</a></p>
+      </div> 
+      <!-- End Column 1 -->
+
+      <!-- Start Column 2 -->
+      <% for(let each of locals.products){ %>
+      <% for(let i=0;i<each.productImg.length;i++){ %>  
+      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+        <a class="product-item" href="cart.html">
+          <img src="<%= each.productImg[i] %>" class="img-fluid product-thumbnail">
+          <h3 class="product-title"><%= each.productName %></h3>
+          <strong class="product-price">₹<%= each.productPrice %></strong>
+        </a>
+      </div> 
+      <% } %>
+      <% } %>
+      <!-- End Column 2 -->
+
+     
+      <!-- End Column 4 -->
+
+    </div>
+  </div>
+</div>
+
+<!-- End Product Section -->
+
+<!--start why choose section -->
+
+<!-- <div class="why-choose-section">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-6">
+        <h2 class="section-title">Why Choose Us</h2>
+        <p>we're passionate about more than just footwear; we're dedicated to elevating your style, comfort, and confidence one step at a time.</p>
+
+        <div class="row my-5">
+          <div class="col-6 col-md-6">
+            <div class="feature">
+              <div class="icon">
+                <img src="images/cargo-truck_71222 (1).png" alt="Image" class="imf-fluid">
+              </div>
+              <h4>Fast &amp; Free Shipping</h4>
+              <p>We offer a wide range of products delivery and services.</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-6">
+            <div class="feature">
+              <div class="icon">
+                <img src="images/high-quality_5733207.png" alt="Image" class="imf-fluid">
+              </div>
+              <h4>Assured Quality</h4>
+              <p>Our commitment to quality is unwavering, and it's evident in every pair of sandals we offer.</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-6">
+            <div class="feature">
+              <div class="icon">
+                <img src="images/call-center-agent_10726790.png" alt="Image" class="imf-fluid">
+              </div>
+              <h4>24/7 Support</h4>
+              <p>contact our Customer Support within 24 hours.</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-6">
+            <div class="feature">
+              <div class="icon">
+                <img src="images/exchange.png" alt="Image" class="imf-fluid">
+              </div>
+              <h4>Easy Exchange</h4>
+              <p>Is damaged or defective, or if product delivered is different, you may return the product.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="img-wrap">
+          <img src="images/model.jpg" alt="Image" class="img-fluid">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div> -->
+<!-- End Why Choose Us Section -->
+
+<!-- -------------------------------OFFER---------------------------------------- -->
+
+<div class="offer">
+  <div class="small-container">
+      <div class="row">
+          <div class="col-12 col-lg-7"><img src="images/shop1.jpg" id="offer-img">
+          </div>
+      <div class="col-12 col-lg-5 mt-5"><p>Exclusively Available on PrdeStore </p>
+      <h1>Smart Band</h1>
+      <small class="offerdesc">The Xiaomi Mi Smart Band 4 (Xiaomi Mi Band 4 in China) is a wearable activity tracker 
+          produced by Xiaomi Inc released in China on 16 June 2019,[2] in Europe on 26 June 2019[3] 
+          and in India on 19 September 2019. It is 39.9% larger than its predecessor, has a super 
+          capacitive AMOLED display and features 24/7 
+          heart rate monitoring.</small> <br>
+          <a href="/shop" class="btn btn-dark mt-5 ml-5">Shop Now&#8594;</a>
+      </div>
+  </div>
+</div>
+</div>
+
+<!-- Pagination -->
+</div>
+<div class="btnnum">
+<span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>&#8594;</span>
+</div>
+        
+                         
+</div>
+<!-- Start Footer Section -->
+
+<!-- footer start -->
+<footer>
+  <div class="container">
+     <div class="row">
+        <div class="col-md-4">
+            <div class="full">
+               <!-- <div class="logo_footer">
+                 <a href="#"><img width="100" src="/images/image 1 - Copy.png" alt="Logo" /></a>
+               </div> -->
+               <div class="information_f">
+                 <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>
+                 <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
+                 <p><strong>EMAIL:</strong> yourmain@gmail.com</p>
+               </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+           <div class="row">
+           <div class="col-md-7">
+              <div class="row">
+                 <div class="col-md-6">
+              <div class="widget_menu">
+                 <h3>Menu</h3>
+                 <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                 </ul>
+              </div>
+           </div>
+           <div class="col-md-6">
+              <div class="widget_menu">
+                 <h3>Account</h3>
+                 <ul>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Register</a></li>
+                    <li><a href="#">Shopping</a></li>
+                 </ul>
+              </div>
+           </div>
+              </div>
+           </div>     
+           <div class="col-md-5">
+              <div class="widget_menu">
+                 <h3>Newsletter</h3>
+                 <div class="information_f">
+                   <p>Subscribe by our newsletter and get update protidin.</p>
+                 </div>
+                 <div class="form_sub">
+                    <form>
+                       <fieldset>
+                          <div class="field">
+                             <input type="email" placeholder="Enter Your Mail" name="email" />
+                             <input type="submit" value="Subscribe" />
+                          </div>
+                       </fieldset>
+                    </form>
+                 </div>
+              </div>
+           </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</footer>
+<!-- footer end -->
+<div class="cpy_">
+  <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
+  
+     Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+  
+  </p>
+</div>
+<!-- End Footer Section -->	
+<%- include('../partials/footer.ejs') %>
+
+
+
+
+   
+

@@ -1,0 +1,106 @@
+<%- include('../partials/adminNavbar.ejs') %>
+
+    <div class="addproduct-container">
+
+        <div class="form-addproduct">
+            <h2>Add Product</h2>
+
+            <form action="/admin/addProduct" method="post" id="validation_form" enctype="multipart/form-data">
+
+                <div class="form-addproduct-inner">
+                    <div class="form-left">
+                        <label for="product_name">Product Name:</label><br>
+                        <input type="text" id="product_name" name="productName" pattern="^[a-zA-Z0-9][a-zA-Z0-9\s]+$" required><br>
+
+                        <label for="price">Price:</label><br>
+                        <input type="number" id="price" name="price" step="0.01" required><br>
+
+                        <label for="quantity">Quantity:</label><br>
+                        <input type="number" id="quantity" name="quantity" required><br>
+
+                        <p id="error" class="<%= locals.class %>">
+                            <%= locals.message %>
+                        </p>
+
+                    </div>
+                    <div class="form-right">
+
+                        <label for="category">Category:</label><br>
+                        <select id="category" name="category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <% for (let each of locals.category) {%>
+                                <option value="<%= each.categoryName %>">
+                                    <%= each.categoryName %>
+                                </option>
+                                <%}%>
+                                    <!-- Add more categories as needed -->
+                        </select> <a
+                            style="background-color: #1f1e1e; padding: 2px 5px; font-size: 13px; text-decoration: none;"
+                            class="btn btn-dark" href="/admin/addCategory">Add Category</a><br>
+                            </select>
+
+                        <!-- <label for="subcategory">Subcategory:</label><br>
+                        <select id="subcategory" name="subcategory">
+                            <option value="" disabled selected>Select Subcategory</option>
+                            Add subcategories based on the selected category using JavaScript or fetch from the server
+                        </select><br> -->
+
+                        <label for="description">Description:</label><br>
+                        <textarea id="description" name="description" rows="4" cols="50" maxlength="499"></textarea><br>
+
+                        <label for="file_uploader">File Uploader:</label><br>
+                        <div id="image-preview"></div>
+                        <input type="file" id="file_uploader" name="img-file"  accept=".jpg, .jpeg, .png" multiple onchange="previewImages(event)"><br>
+                        
+
+
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="submit-btn text-white">
+            </form>
+
+        </div>
+    </div>
+    <script>
+        function previewImages(event) {
+          const imagePreview = document.getElementById("image-preview");
+          imagePreview.innerHTML = ""; // Clear previous previews
+      
+          const files = event.target.files;
+      
+          const imageContainer = document.createElement("div"); // Container for all images
+          imageContainer.style.display = "flex"; // Display images in a row
+          imageContainer.style.flexWrap = "nowrap"; // Prevent wrapping to new lines
+      
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+      
+            if (file.type.match("image.*")) {
+              const reader = new FileReader();
+      
+              reader.onload = function () {
+                const image = document.createElement("img");
+                image.src = reader.result;
+                image.style.maxWidth = "50px"; // Adjust the image size as needed
+                image.style.marginRight = "10px"; // Add spacing between images
+                imageContainer.appendChild(image);
+              };
+      
+              reader.readAsDataURL(file);
+            }
+          }
+      
+          // Append the image container to the preview container
+          imagePreview.appendChild(imageContainer);
+        }
+      
+        // Attach the previewImages function to the file input's onchange event
+        const fileUploader = document.getElementById("file_uploader");
+        fileUploader.addEventListener("change", previewImages);
+      </script>
+      
+                    
+    <!-- <script src="/scripts/validate_num.js"></script> -->
+    <%- include('../partials/footer.ejs') %>
+
+

@@ -1,0 +1,180 @@
+
+<%- include('../partials/navbar.ejs') %>
+
+
+<!-- SIGNUP FORM -->
+
+<section class="h-100 gradient-form" style="background-color: #eee; padding-top: 130px;">
+  <div class="container py-3 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-4 mx-md-5">
+
+                <div class="text-center">
+                  <!-- <img src="/images/image 1.png"
+                    style="width: 185px;" alt="logo"> -->
+                  <h4 class="mt-0 mb-2 pb-0">Join The Pride Team</h4>
+                  <p class="text-danger" id="error"><%-locals.message ? locals.message :''-%></p>
+                </div>
+                <form action="/signup" method="POST" id="validation_form">
+                  <p>Create a new account</p>
+                    <div class="form-outline mb-0">
+                      <div class="error text-danger" id="usernameError"></div>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username"required/>
+                    <label class="form-label" for="username">Username</label>
+                  </div>
+
+                  <div class="form-outline mb-0">
+                    <div class="error text-danger" id="emailError"></div>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required />
+                    <label class="form-label" for="email">Email</label>
+                  </div>
+
+                  <div class="form-outline mb-0">
+                    <div class="error text-danger" id="phoneError"></div>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone number" required />
+                    <label class="form-label" for="phone">Phone Number</label>
+                  </div>
+
+                  <div class="form-outline mb-0">
+                    <div class="error text-danger" id="passwordError"></div>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+
+                  <div class="form-outline mb-0">
+                    <div class="error text-danger" id="confirmPasswordError"></div>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required />
+                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                  </div>
+
+                  <!-- <p id="error" style="font-size: 13px; color: red; margin-left: 10px;"></p> -->
+                        
+
+                  <div class="text-center pt-1 mb-12 pb-1">
+                    <button class="btn btn-dark btn-block fa-lg gradient-custom-3 mb-2" type="submit">Sign Up</button>
+                  </div>
+                  
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    
+                    <p class="mb-0 me-2">Already have an account?</p>
+                    <a  class="btn btn-outline-dark" href="/login">Log In</a>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+const usernameInput = document.getElementById('username');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirmPassword');
+
+// Select error message elements
+const usernameError = document.getElementById('usernameError');
+const emailError = document.getElementById('emailError');
+const phoneError = document.getElementById('phoneError');
+const passwordError = document.getElementById('passwordError');
+const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+// Regular expressions for validation
+const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const phonePattern = /^[0-9]{10}$/;
+const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
+// Function to validate each field
+function validateUsername() {
+    console.log('valida');
+    if (usernameInput.value.trim() === '') {
+        usernameError.textContent = 'Username is required';
+    } else {
+        usernameError.textContent = '';
+    }
+}
+
+function validateEmail() {
+    if (!emailPattern.test(emailInput.value)) {
+        emailError.textContent = 'Invalid Email format';
+    } else {
+        emailError.textContent = '';
+    }
+}
+
+function validatePhone() {
+    if (!phonePattern.test(phoneInput.value)) {
+        phoneError.textContent = 'Invalid phone number (10 digits)';
+    } else {
+        phoneError.textContent = '';
+    }
+}
+
+function validatePassword() {
+    if (!passwordPattern.test(passwordInput.value)) {
+        passwordError.textContent = 'Minimum eight characters, at least one letter and one number';
+    } else {
+        passwordError.textContent = '';
+    }
+}
+
+function validateConfirmPassword() {
+    if (confirmPasswordInput.value !== passwordInput.value) {
+        confirmPasswordError.textContent = 'Passwords do not match';
+    } else {
+        confirmPasswordError.textContent = '';
+    }
+}
+
+// Add event listeners for input validation
+usernameInput.addEventListener('input', validateUsername);
+emailInput.addEventListener('input', validateEmail);
+phoneInput.addEventListener('input', validatePhone);
+passwordInput.addEventListener('input', validatePassword);
+confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+
+const validationForm = document.getElementById('validation_form');
+
+validationForm.addEventListener('submit', function (event) {
+    // Validate all fields
+    validateUsername();
+    validateEmail();
+    validatePhone();
+    validatePassword();
+    validateConfirmPassword();
+
+    // Check for validation errors
+    if (
+        usernameError.textContent ||
+        emailError.textContent ||
+        phoneError.textContent ||
+        passwordError.textContent ||
+        confirmPasswordError.textContent
+    ) {
+        // If there are errors, prevent form submission
+        event.preventDefault();
+    }
+});
+
+</script>
+
+<%- include('../partials/footer.ejs') %>

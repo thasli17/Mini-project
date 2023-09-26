@@ -1,0 +1,56 @@
+ <!-- Navigation Bar -->
+ <%-include("../partials/links")  -%>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <!-- <div class="container"> -->
+            <div class="navbar-brand  logo">
+                <img src="images/image 1.png" alt="Logo" >
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+              <!-- <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0"> -->
+                <li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
+                <li><a class="nav-link" href="/shop">Shop</a></li>
+                <li><a class="nav-link" href="about.html">About us</a></li>
+                <li><a class="nav-link" href="contact.html">Contact us</a></li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control  custom-search-input" type="text" placeholder="Search">
+                <button class="btn btn-dark custom-search-button" type="button" >Search</button>
+              </form>
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle user-icon mt-3" data-toggle="dropdown" id="loginDropdownToggle">
+                        <img src="images/user.png">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" id="loginDropdown">
+                        <% if(!locals.isUser){ %>
+                        <a class="dropdown-item" href="/login">Login</a>
+                        <% } else { %>
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                        <% } %>
+                    </div>
+                </li>
+                <!-- <li class="nav-item"><a class="wishlist-icon" href="#"><img src="images/wishlist3.png"></a></li>
+                <li class="nav-item"><a class="cart-icon" href="/cart"><img src="images/bag3.png"></a></li> -->
+            </ul>
+                        
+                    </div>
+                </div>
+            </li>
+            
+         
+                <li class="nav-item" style="list-style: none;margin-bottom: 4px;"><a class="wishlist-icon" href="#"><img src="images/wishlist3.png"></a></li>
+                <li class="nav-item" style="list-style: none;margin-bottom: 4px;"><a class="cart-icon" href="/cart"><img src="images/bag3.png"></a></li>
+              </ul>
+            </div>
+            
+        <!-- </div> -->
+    </nav>
+</header>
+    

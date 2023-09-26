@@ -1,0 +1,26 @@
+<%- include('../partials/adminNavbar.ejs') %>
+
+    <div class="table-container mt-5 bg-dark">
+            <h3 class="text-center text-white">LIST OF CATEGORIES</h3>
+            <table border="3" style="margin: 0 auto; ">
+                <tr style="background-color: rgb(248, 243, 243);">
+                    <th style="width: 30%;">Serial No</th>
+                    <th style="width: 30%;">Name</th>
+                    <th style="width: 30%;">Description</th>
+                </tr>
+                <% let k = 0 %>
+                <% for (let each of locals.category) { %>
+                <tr>
+                    <td class="text-white"> <%= ++k %> </td>
+                    <td class="text-white"><%= each.categoryName %></td>
+                    <td class="text-white"><%= each.categoryDesc %></td>
+                </tr>
+                <% } %>
+                
+            </table>
+            <div class="button-container">
+            <a href="/admin/addCategory" class="btn btn-light" >Add Category</a>
+        </div>
+    </div>
+   
+<%- include('../partials/footer.ejs') %>

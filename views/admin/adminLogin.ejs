@@ -1,0 +1,121 @@
+
+<!-- LOGIN FORM -->
+
+<%- include('../partials/adminNavbar.ejs') %>
+
+<section class="h-100 gradient-form" style="background-color: #eee; padding-top: 40px;">
+  <div class="container py-3 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <!-- <img src="/images/image 1.png"
+                    style="width: 185px;" alt="logo"> -->
+                  <h4 class="mt-1 mb-5 pb-1">Welcome Back Admin</h4>
+                  <p class="text-danger"><%- locals.error ? locals.error : '' %></p>
+                </div>
+
+                <form action="/admin/login" method="post">
+                  <p>Please login to your account</p>
+
+                  <div class="form-outline mb-3">
+                    <input type="email" id="email" class="form-control" name="email"
+                      placeholder="Enter Your Email address" required />
+                    <label class="form-label" for="email">Username</label>
+                    <p class="text-danger" id="emailError"></p>
+                  </div>
+
+                  <div class="form-outline mb-3">
+                    <input type="password" id="password" class="form-control" name="password"
+                    placeholder="password" required/>
+                    <label class="form-label" for="password">Password</label>
+                    <p class="text-danger" id="passwordError"></p>
+                  </div>
+
+                  <div class="text-center pt-1 mb-3 pb-1">
+                    <a class="text-muted" href="#!">Forgot password?</a>
+                    <button class="btn btn-dark btn-block fa-lg gradient-custom-2 mt-3" type="submit">Log in</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+
+// Define validation patterns
+const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+// Function to validate email
+function validateEmail() {
+     if(emailInput.value === ''){
+      emailError.textContent = 'Email is required'
+  }
+    else if (emailPattern.test(emailInput.value)) {
+        emailError.textContent = '';
+    } else {
+        emailError.textContent = 'Invalid email format';
+    }
+}
+
+//Function to validate password
+function validatePassword() {
+  if(passwordInput.value === ''){
+    passwordError.textContent = 'Password is required'
+  }
+    // else (passwordPattern.test(passwordInput.value)){
+    //     passwordError.textContent = '';
+    // } 
+    // else {
+    //     passwordError.textContent = 'Password must be at least 8 characters long and contain at least one letter and one digit';
+    // }
+}
+
+// Add event listeners for input and form submission
+emailInput.addEventListener('input', validateEmail);
+passwordInput.addEventListener('input', validatePassword);
+
+const loginForm = document.querySelector('form');
+
+loginForm.addEventListener('submit', function (event) {
+
+    // Validate email and password
+    validateEmail();
+    validatePassword();
+
+    // Check for validation errors
+    if (emailError.textContent) {
+        // Prevent form submission if there are errors
+        event.preventDefault();
+    }
+});
+
+</script>
+
+
+
+<%- include('../partials/footer.ejs') %>

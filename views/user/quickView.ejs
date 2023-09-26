@@ -1,0 +1,46 @@
+
+
+<%- include('../partials/navbar.ejs') %>
+
+
+
+<div class = "main-wrapper mt-4">
+    <div class = "container">
+        <div class = "product-div">
+            <div class = "product-div-left">
+                <div class = "img-container">
+                    <img  src = "<%= locals.product.productImg %>" >
+                </div>
+                <div class = "hover-container">
+                    <div><img src = "images/w1.png"></div>
+                    <div><img src = "images/w2.png"></div>
+                    <div><img src = "images/w3.png"></div>
+                    <div><img src = "images/w4.png"></div>
+                    <div><img src = "images/w5.png"></div>
+                </div>
+            </div>
+            <div class = "product-div-right col-12 text-center">
+                <span class = "product-name"><%= locals.product.productName  %></span>
+                <span class = "product-price">₹<%= locals.product.productPrice  %></span>
+                <p class = "product-description"><%= locals.product.productDescription %></p>
+                <div class="select-size">
+                    <span class="select-size-heading text-center mb-3 mt-5"><h5>Select Size</h5></span>
+                    <div class="size-options">
+                        <label class="size-option"><input type="radio" name="size" value="5">5</label>
+                        <label class="size-option"><input type="radio" name="size" value="6">6</label>
+                        <label class="size-option"><input type="radio" name="size" value="7">7</label>
+                        <label class="size-option"><input type="radio" name="size" value="8">8</label>
+                        <label class="size-option"><input type="radio" name="size" value="9">9</label>
+                        <label class="size-option"><input type="radio" name="size" value="10">10</label>
+                    </div>
+                </div>
+                <div class = "btn-groups btn-center">
+                    <a href="/addToCart/<%=locals.product._id %>" class = "btn-cart"><i class = "fas fa-shopping-cart"></i>add to bag</a>
+                    <a href="#" class = "btn-buynow"><i class = "fas fa-wallet"></i>buy now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footerHome.ejs') %>
+<%- include('../partials/footer.ejs') %>
