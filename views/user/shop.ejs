@@ -101,7 +101,7 @@
                     <img src="<%= each.productImg[i] %>" class="img-fluid product-thumbnail">
                     <div class="icons">
                       <div class="icon-container">
-                        <a class="shopcart-icon" href="/addToCart/<%= each._id%>"><img src="images/add to cart.png"></a>
+                        <a class="shopcart-icon" href=" javascript:void(0);" onclick="addToCart('<%= each._id%>')"><img src="images/add to cart.png"></a>
                       </div>
                       <div class="icon-container">
                         <a class="quickView-icon" href="/quickView/<%=each._id %>"><img src="images/quickView.png"></a>
@@ -127,3 +127,30 @@
 <%- include('../partials/footerHome.ejs') %>
 <%- include('../partials/footer.ejs') %>
 
+<script>
+    // Function to add a product to the cart
+    async function addToCart(productId) {
+      try {
+        const response = await fetch(`/addToCart/${productId}`);
+        const data = await response.json();
+
+        if(response.ok){
+
+        if (data.successMsg) {
+          // Show a success alert to the user
+          alert("Product added to cart!");
+        } else {
+          alert("Failed to add product to cart.");
+        }
+    }
+    else {
+      // Handle HTTP errors
+      alert(`Failed to add product to cart. HTTP Error: ${response.status}`);
+    }
+      } catch (error) {
+        console.error(error);
+        alert("An error occurred while adding the product to the cart.");
+      }
+    }
+  </script>
+  

@@ -18,6 +18,17 @@
                         <label for="quantity">Quantity:</label><br>
                         <input type="number" id="quantity" name="quantity" required><br>
 
+                        <label for="sizes">Select Sizes:</label><br>
+<select id="sizes" name="sizes" multiple>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
+</select><br>
+
+
                         <p id="error" class="<%= locals.class %>">
                             <%= locals.message %>
                         </p>

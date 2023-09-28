@@ -712,7 +712,12 @@ form input[type="submit"]:focus {
       color: #ddd;
       border-bottom: 1px solid #81818140;
     } */
-
+    #myTable{
+      border: 1px solid #2f2f2f;
+      text-align: center;
+      margin-top: 100px;
+      width: 80%;
+    }
     
  
 /* ------------------------------------------------QuickView---------------------------------------------- */

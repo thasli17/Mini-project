@@ -7,9 +7,7 @@ module.exports={
 cart:async(req,res)=>{
     try{
 
-        const productId = req.params.id;
-    
-    
+    const productId = req.params.id;
     const email = req.session.user;
     const product = await ProductCollection.findOne({_id:productId})
     const cart = {
@@ -52,6 +50,7 @@ deleteCart:async(req,res)=>{
 
     
     const email = req.session.user;
+    console.log(email);
     const productId = req.params.id;
     const updatedQuery={
         //removes the object from the cart that having the given product_id
@@ -62,9 +61,14 @@ deleteCart:async(req,res)=>{
 const deleteCartItems = await UserCollection.findOneAndUpdate({email},updatedQuery)
 const cartItems = deleteCartItems.cart
 
-res.render('user/cart',{cartItems,isUser:true})
-}catch(error){
-    console.log(error);
+res.json({
+    success : true,
+    // total : updateTotal[0].total
+})
+
+}catch(e){
+console.log(e)
+res.json({message : 'could not complete try again'})
 }
 
 },

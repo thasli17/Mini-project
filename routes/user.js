@@ -37,7 +37,7 @@ user.get('/quickview/:id',userController.quickview)
 
 user.get('/addToCart/:id',userProductController.cart)
 user.get('/cart',userProductController.cartPage)
-user.get('/cart/delete/:id',userProductController.deleteCart)
+user.delete('/cart/delete/:id',userProductController.deleteCart)
 
 
 module.exports = user

@@ -1,13 +1,8 @@
-
 <%- include('../partials/navbar.ejs') %>
 
 <style>
-  #myTable{
-    margin-top: 100px;
-    width: 80%;
-    /* background-color: rgb(145, 138, 138); */
-  }
-  th{
+
+  th {
     background-color: rgb(145, 138, 138);
   }
 </style>
@@ -15,106 +10,96 @@
 <div class="mainbody center-content">
   <h1>Cart</h1>
   <table class="table cart-table" id="myTable">
-  <tr> <th>Image</th>
-  <th>Name</th>
-  <th>Price</th>
-  <th>Qty</th>
-  <th>Total</th>
-  <th>Remove</th>
-  </tr>
-  <% for(let each of locals.cartItems){ %>
-  <tr id="sweetRow">
-  <td><img src=""><%= each.productImg %></img></td>
-  <td><%= each.productName  %></td>
-  <td><%= each.productPrice  %></td>
-  <td><input class="qty-value" type="text" name="qtyitem1<%= each.quantity %>" value="<%= each.quantity  %>"></td>
-  <td id="sweetAmount">$10</td>
-  <td> <a  onclick="deleteCartItem('<%= each._id %>')"><img class="btn btn dark" src="images/delete.png" style="height: 40px; width: 50px;"> </a>  </td>
-  </tr>
-  <% } %>
-</table>
-
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Total</th>
+      <th>Remove</th>
+    </tr>
+    <% for (let each of locals.cartItems) { %>
+      <tr id="cartItem-<%= each._id %>">
+        <td class="imageHeader"><img style="width: 80px; height: 80px;" src="<%= each.productImg %>"></img></td>
+        <td><%= each.productName %></td>
+        <td><%= each.productPrice %></td>
+        <td><input class="w-25 pl-1" type="text" name="qtyitem1<%= each.quantity %>" value="<%= each.quantity %>"></td>
+        <td id="sweetAmount">$10</td>
+        <td> <a onclick="deleteCartItem('<%= each._id %>')" class="delete-icon"><img class="btn btn dark" src="images/delete.png" style="height: 40px; width: 50px;"></a> </td>
+      </tr>
+    <% } %>
+  </table>
 
   <div class="bigbottommenu container">
-      <div class="row">
-          <div class="minisidemenu col-4">
-              <button class="btn btn-dark" type="button" onclick="return updateCart();">UPDATE CART</button>
-              <a  class="btn btn-dark" href="/shop">CONTINUE SHOPPING</a>
-          </div>
-          <div class="col-4"></div>
-          <div class="billtotal col-4">
-              <H2>CART TOTAL</H2>
-             <table class="table cart-total-table" >
-                 <tr>
-                 <td>Subtotal</td>
-                 <td id="subtotal">$30</td>
-                 </tr>
-                 <tr>
-                 <td>Shipping</td>
-                 <td>Free</td>
-                 </tr>
-                 <tr>
-                 <td>Total</td>
-                 <td id="total"></td>
-                 </tr>
-              </table>
-              <button class="btn btn-dark" type="button">PROCEED TO CHECKOUT</button>
-          </div>
+    <div class="row">
+      <div class="minisidemenu col-4">
+        <button class="btn btn-dark" type="button" onclick="return updateCart();">UPDATE CART</button>
+        <a class="btn btn-dark" href="/shop">CONTINUE SHOPPING</a>
       </div>
+      <div class="col-4"></div>
+      <div class="billtotal col-4">
+        <H2>CART TOTAL</H2>
+        <table class="table cart-total-table">
+          <tr>
+            <td>Subtotal</td>
+            <td id="subtotal">$30</td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td id="total"></td>
+          </tr>
+        </table>
+        <button class="btn btn-dark" type="button">PROCEED TO CHECKOUT</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-  function deleteCartItem(productId){
-    console.log('delete');
-    fetch(`/cart/delete/${productId}`,{
-      method:'DELETE',
+  // Add an event listener to the common parent element of delete icons
+  document.addEventListener('click', function (event) {
+    // Check if the clicked element or any of its ancestors have the "delete-icon" class
+    if (event.target.closest('.delete-icon')) {
+      // Extract the productId from the data-product-id attribute
+      const productId = event.target.closest('.delete-icon').getAttribute('data-product-id');
 
-    })
-    .then((response) => response.json())
-    .then((data)=>{
-      if(data.success) {
+      // Call the deleteCartItem function with the productId
+      deleteCartItem(productId);
+    }
+  });
 
-        const rowToRemove = document.getElementById(`cartItem-${productId}`)
-        if(rowToRemove){
-          rowToRemove.remove();
+  function deleteCartItem(productId) {
+    if(!productId){
+      console.log('Invalid productID');
+      return
+    }
+    const delItemUrl = `/cart/delete/${productId}`;
+    const requestOption = {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+
+    fetch(delItemUrl, requestOption)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // If deletion was successful, remove the corresponding row from the table
+          const rowToRemove = document.getElementById(`cartItem-${productId}`);
+          if (rowToRemove) {
+            rowToRemove.remove();
+          }
+        } else {
+          console.error(data.error);
         }
-
-
-      }else{
-        console.error(data.error);
-      }
-    })
-    .catch((error)=>{
-      console.error(error);
-    })
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 </script>
-
-<!-- <script>
-  // Initialize an empty cart object
-const cart = {
-items: [], // Array to store items
-total: 0, // Total cart amount
-};
-// Function to add items to the cart
-function addToCart(productName, productPrice) {
-const quantity = 1; // You can allow users to change the quantity as needed
-const total = productPrice * quantity;
-
-// Add the item to the cart
-cart.items.push({
-  name: productName,
-  price: productPrice,
-  quantity: quantity,
-  total: total,
-});
-
-// Update the cart total
-cart.total += total;
-
-// Update the cart page display (call a function to update the HTML)
-//   updateCartPage();
-}
-
-</script> -->
