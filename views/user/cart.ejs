@@ -5,6 +5,24 @@
   th {
     background-color: rgb(145, 138, 138);
   }
+  /* Add this CSS to remove borders and padding around the quantity input */
+.quantity-input {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.quantity-button.plus {
+  margin-left: 5px; /* Add spacing between plus and minus buttons if needed */
+}
+
 </style>
 
 <div class="mainbody center-content">
@@ -15,6 +33,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Qty</th>
+      <th>Size</th>
       <th>Total</th>
       <th>Remove</th>
     </tr>
@@ -23,8 +42,18 @@
         <td class="imageHeader"><img style="width: 80px; height: 80px;" src="<%= each.productImg %>"></img></td>
         <td><%= each.productName %></td>
         <td><%= each.productPrice %></td>
-        <td><input class="w-25 pl-1" type="text" name="qtyitem1<%= each.quantity %>" value="<%= each.quantity %>"></td>
-        <td id="sweetAmount">$10</td>
+        <td>
+          <button class="quantity-button" onclick="updateQuantity('<%= each._id %>','decrease')">-</button>
+          <!-- Plus button to decrease  quantity -->          
+          <!-- Quantity input field -->
+          <input class="w-25 pl-5" type="number" name="quantity<%= each._id %>" min="1" value="<%= each.quantity %>"
+  data-product_id="<%= each._id %>" onchange="quantityChange(this)">
+
+          <!-- Minus button to increase quantity -->          
+          <button class="quantity-button" onclick="updateQuantity('<%= each._id %>','increase')">+</button>
+        </td>
+        <td><%= each.size %></td>
+        <td id="itemSum"><%= each.quantity * each.productPrice %></td>
         <td> <a onclick="deleteCartItem('<%= each._id %>')" class="delete-icon"><img class="btn btn dark" src="images/delete.png" style="height: 40px; width: 50px;"></a> </td>
       </tr>
     <% } %>
@@ -42,15 +71,15 @@
         <table class="table cart-total-table">
           <tr>
             <td>Subtotal</td>
-            <td id="subtotal">$30</td>
+            <td id="subtotal"><%= locals.total %></td>
           </tr>
           <tr>
             <td>Shipping</td>
-            <td>Free</td>
+            <td id="shippingCharge"><%= locals.total > 5000 ?'free shipping': 40;%></td>
           </tr>
           <tr>
             <td>Total</td>
-            <td id="total"></td>
+            <td id="totalSum"><%= locals.total > 5000 ?locals.total : locals.total + 40;%></td>
           </tr>
         </table>
         <button class="btn btn-dark" type="button">PROCEED TO CHECKOUT</button>
@@ -58,6 +87,7 @@
     </div>
   </div>
 </div>
+
 
 <script>
   // Add an event listener to the common parent element of delete icons
@@ -100,6 +130,41 @@
       })
       .catch((error) => {
         console.error(error);
+      });
+  }
+
+
+ </script>
+
+ <script>
+    // Function to handle quantity changes
+    function quantityChange(elem) {
+    let val = elem.value;
+    
+    let productId = elem.getAttribute('data-product_id');
+    
+    let updateQuantityUrl = `/cart/updateQuantity?quantity=${val}&productId=${productId}`;
+
+    fetch(updateQuantityUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          // Update the itemSum, shippingCharge, and totalSum elements on your page
+          
+          let total = res.total;
+          // document.getElementById(`itemSum-${productId}`).innerText = val * parseFloat(document.getElementById(`productPrice-${productId}`).innerText);
+          document.getElementById('subtotal').innerText = total
+          // document.getElementById('itemSum').innerText = total;
+          let shippingChargeElement = document.getElementById('shippingCharge');
+          if (total > 5000) {
+            shippingChargeElement.className = "";
+            shippingChargeElement.innerText = 'free shipping';
+            document.getElementById('totalSum').innerText = total;
+          } else {
+            shippingChargeElement.innerText = 40;
+            document.getElementById('totalSum').innerText = total + 40;
+          }
+        }
       });
   }
 </script>

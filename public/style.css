@@ -894,8 +894,8 @@ Img{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px; /* Adjust as needed */
-  height: 30px; /* Adjust as needed */
+  width: 30px;                  /*Adjust as needed*/
+  height: 30px;                 /*Adjust as needed*/
   border: 2px solid #ccc;
   border-radius: 50%;
   margin-right: 20px;
@@ -903,14 +903,14 @@ Img{
   transition: background-color 0.3s, color 0.3s;
 }
 
-.size-option input[type="radio"] {
-  display: none; /* Hide the actual radio buttons */
-}
+/* .size-option input[type="checkbox"] {
+  display: none; Hide the actual radio buttons
+} */
 
-.size-option:hover {
-  background-color: #0b0b0b; /* Change background color on hover */
-  color: #fff; /* Change text color on hover */
-}
+/* .size-option:hover {
+  background-color: #0b0b0b; Change background color on hover
+  color: #fff; Change text color on hover
+} */
 
 
 /* ----------------------------------------FILTER---------------------------------- */

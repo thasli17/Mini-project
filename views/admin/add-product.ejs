@@ -1,4 +1,35 @@
 <%- include('../partials/adminNavbar.ejs') %>
+<style>
+/* Style the size dropdown container */
+.size-dropdown {
+  width: 150px; /* Set a fixed width for the container */
+  overflow-x: auto; /* Add horizontal scroll if options overflow */
+}
+
+/* Style the size options */
+#size {
+  width: 100%; /* Fill the container width */
+  display: inline-block; /* Display the dropdown inline */
+}
+#selectAllSizes {
+  margin-left: 10px; /* Add spacing between the dropdown and checkbox */
+}
+.size-container {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+}
+
+/* Style the size dropdown */
+#size {
+  width: 100%; /* Fill available space */
+}
+/* Style the selected size options when "Select All Sizes" is chosen */
+#size option:checked:not([value="selectAll"]) {
+  background-color: #00cc00; /* Change to your desired color */
+  color: white; /* Change text color as needed */
+}
+
+</style>
 
     <div class="addproduct-container">
 
@@ -18,15 +49,20 @@
                         <label for="quantity">Quantity:</label><br>
                         <input type="number" id="quantity" name="quantity" required><br>
 
-                        <label for="sizes">Select Sizes:</label><br>
-<select id="sizes" name="sizes" multiple>
-  <option value="5">5</option>
-  <option value="6">6</option>
-  <option value="7">7</option>
-  <option value="8">8</option>
-  <option value="9">9</option>
-  <option value="10">10</option>
-</select><br>
+                        <div class="select-size">
+                          <span class="select-size-heading text-center mb-3 mt-5"><h5>Select Size</h5></span>
+                          <div class="size-options">
+                              <label class="size-option"><input type="checkbox" name="size" value="selectAll">All</label>
+                              <label class="size-option"><input type="checkbox" name="size" value="5">5</label>
+                              <label class="size-option"><input type="checkbox" name="size" value="6">6</label>
+                              <label class="size-option"><input type="checkbox" name="size" value="7">7</label>
+                              <label class="size-option"><input type="checkbox" name="size" value="8">8</label>
+                              <label class="size-option"><input type="checkbox" name="size" value="9">9</label>
+                              <label class="size-option"><input type="checkbox" name="size" value="10">10</label>
+                          </div>
+                      </div>
+                      <input type="hidden" name="selectAllSizes" id="selectAllSizes" value="false">
+
 
 
                         <p id="error" class="<%= locals.class %>">
@@ -108,6 +144,28 @@
         // Attach the previewImages function to the file input's onchange event
         const fileUploader = document.getElementById("file_uploader");
         fileUploader.addEventListener("change", previewImages);
+
+
+
+
+// Function to handle changes in the "Select All" checkbox
+function handleSelectAll() {
+  const selectAllCheckbox = document.querySelector('input[value="selectAll"]');
+  const sizeCheckboxes = document.querySelectorAll('input[name="size"]:not([value="selectAll"])');
+  const selectAllSizesInput = document.getElementById("selectAllSizes");
+
+  // Check/uncheck other size checkboxes based on the "Select All" checkbox
+  sizeCheckboxes.forEach(checkbox => {
+    checkbox.checked = selectAllCheckbox.checked;
+  });
+  selectAllSizesInput.value = selectAllCheckbox.checked ? "true" : "false";
+}
+
+// Attach the handleSelectAll function to the "Select All" checkbox's change event
+const selectAllCheckbox = document.querySelector('input[value="selectAll"]');
+selectAllCheckbox.addEventListener("change", handleSelectAll);
+
+
       </script>
       
                     

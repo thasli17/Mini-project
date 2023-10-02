@@ -62,6 +62,7 @@
                       <th class="p-3">Category</th>
                       <th class="p-3">Price</th>
                       <th class="p-3">Quantity</th>
+                      <th class="p-3">Available Sizes</th>
                       <th class="p-3">Images</th>
                       <th class="p-3">Availability</th>
                       <th class="third p-3">Edit</th>
@@ -75,6 +76,8 @@
                           <td id="pro-body"><%= each.productCategory %></td>
                           <td id="pro-body">Rs.<%= each.productPrice %></td>
                           <td id="pro-body"><%= each.productQuantity %></td>
+                          <td id="pro-body"><%= each.size %></td>
+
                           <td id="pro-body">
                               <img style="width: 50px; height: 55px" src=" <%= each.productImg %>" />
                           </td>

@@ -49,7 +49,14 @@ addProductPost: async (req,res)=>{
             
             images.push('/'+each.path.slice(7))
         }
-    
+    // Extract selected sizes from the request
+    const selectedSizes = req.body.size;
+    const selectAllSizes = req.body.selectAllSizes === "true";
+
+    // Define all available sizes
+    const allSizes = ['5', '6', '7', '8', '9', '10']; // Modify this array with all available sizes
+    // Determine the sizes to save based on "Select All" selection
+    const sizesToSave = selectAllSizes ? allSizes : selectedSizes;
        
         const productData ={
             productName: req.body.productName,
@@ -58,7 +65,9 @@ addProductPost: async (req,res)=>{
             productCategory:req.body.category,
             productDescription:req.body.description,
             productImg: images,
-            isAvailable:true
+            isAvailable:true,
+            size: sizesToSave, // Use sizesToSave in your product data
+            
         }
     
         const newProduct = await ProductCollection.create(productData)

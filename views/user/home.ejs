@@ -51,16 +51,27 @@
 
       <!-- Start Column 2 -->
       <% for(let each of locals.products){ %>
-      <% for(let i=0;i<each.productImg.length;i++){ %>  
-      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-        <a class="product-item" href="cart.html">
-          <img src="<%= each.productImg[i] %>" class="img-fluid product-thumbnail">
-          <h3 class="product-title"><%= each.productName %></h3>
-          <strong class="product-price">₹<%= each.productPrice %></strong>
-        </a>
-      </div> 
-      <% } %>
-      <% } %>
+        <% for(let i=0;i<each.productImg.length;i++){ %>  
+    <div class="col-12 col-md-4 col-lg-3 mb-5 product-item">
+      <div class="product-card ">
+            <img src="<%= each.productImg[i] %>" class="img-fluid product-thumbnail">
+            <div class="icons">
+              <!-- <div class="icon-container">
+                <a class="shopcart-icon" href=" javascript:void(0);" onclick="addToCart('<%= each._id%>')"><img src="images/add to cart.png"></a>
+              </div> -->
+              <div class="icon-container">
+                <a class="quickView-icon" href="/quickView/<%=each._id %>"><img src="images/quickView.png"></a>
+              </div>
+              <!-- <div class="icon-container">
+                <a class="shopwishlist-icon" href="#"><img src="images/heart_6521659.png"></a>
+              </div>                       -->
+            </div>
+            <h3 class="product-title"><%= each.productName %></h3>
+            <strong class="product-price">₹<%= each.productPrice %></strong>
+          </div>
+    </div>  
+    <% } %>
+    <% } %>
       <!-- End Column 2 -->
 
      

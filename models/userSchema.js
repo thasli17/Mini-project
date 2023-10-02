@@ -29,6 +29,8 @@ const userSchema = new mongoose.Schema({
             quantity:{type:Number},
             productPrice:{type:Number},
             productImg:{type:[String], required:[true, "imges cannote be empty"]},
+            size:{ type:Number}, // Add this line for size option
+           
 
         }]
     }
